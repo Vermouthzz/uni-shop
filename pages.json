@@ -43,5 +43,33 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"uniIdRouter": {}
+	"uniIdRouter": {},
+	"tabBar": {
+		"list": [
+			{
+				"pagePath": "pages/home/home",
+				"text": "首页",
+				"iconPath": "/static/home.png",
+				"selectedIconPath": "static/home-active.png"
+			},
+			{
+				"pagePath": "pages/cart/cart",
+				"text": "购物车",
+				"iconPath": "/static/cart.png",
+				"selectedIconPath": "static/cart-active.png"
+			},
+			{
+				"pagePath": "pages/cate/cate",
+				"text": "分类",
+				"iconPath": "/static/cate.png",
+				"selectedIconPath": "static/cate-active.png"
+			},
+			{
+				"pagePath": "pages/profile/profile",
+				"text": "我的",
+				"iconPath": "/static/profile.png",
+				"selectedIconPath": "static/profile-active.png"
+			}
+		]
+	}
 }
