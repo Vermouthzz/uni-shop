@@ -3,11 +3,11 @@
     <!-- 轮播图区域 -->
     <swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
       <!-- 循环渲染轮播图的 item 项 -->
-      <swiper-item v-for="(item, i) in swiperList" :key="i">
-        <view class="swiper-item">
+      <swiper-item v-for="(item, i) in swiperList" :key="i" >
+        <navigator class="swiper-item" :url="'/subpkg/good_detail/good_detail?good_id='+item.goods_id">
           <!-- 动态绑定图片的 src 属性 -->
           <image :src="item.image_src"></image>
-        </view>
+        </navigator>
       </swiper-item>
     </swiper>
 	<!-- 分类导航区域 -->
@@ -24,14 +24,15 @@
 			  <!-- 楼层图片区域 -->
 		<view class="floor-img-box">
 		  <!-- 左侧大图片的盒子 -->
-		  <view class="left-img-box">
+		  <navigator class="left-img-box" :url="item.product_list[0].url">
 		    <image :src="item.product_list[0].image_src" :style="{width: item.product_list[0].image_width + 'rpx'}" mode="widthFix"></image>
-		  </view>
+		  </navigator>
 		  <!-- 右侧 4 个小图片的盒子 -->
 		  <view class="right-img-box">
-		    <view class="right-img-item" v-for="(item2, i2) in item.product_list" :key="i2" v-if="i2 !== 0">
+		    <navigator class="right-img-item" v-for="(item2, i2) in item.product_list" :key="i2" 
+			:url="item2.url" v-if="i2 !== 0">
 		      <image :src="item2.image_src" mode="widthFix" :style="{width: item2.image_width + 'rpx'}"></image>
-		    </view>
+		    </navigator>
 		  </view>
 		</view>
 	  </view>
@@ -50,6 +51,7 @@
 	  // 1. 分类导航的数据列表
 				navList: [],
 				floorList: [],
+				url: []
 			}
   },
   onLoad() {
@@ -79,19 +81,20 @@
 	      if (res.meta.status !== 200) return uni.$showMsg()
 	      this.navList = res.message
 	    },
-		async getFloorList() {
-		      const { data: res } = await uni.$http.get('/api/public/v1/home/floordata')
-		      if (res.meta.status !== 200) return uni.$showMsg()
-		      this.floorList = res.message
-		    },
-  },
+	
 	async getFloorList() {
 	      const { data: res } = await uni.$http.get('/api/public/v1/home/floordata')
 	      if (res.meta.status !== 200) return uni.$showMsg()
+		  res.message.forEach(item => {
+			  item.product_list.forEach(prod => {
+				prod.url = '/subpkg/good_list/good_list?' + prod.navigator_url.split('?')[1]
+			  })
+		  })
 	      this.floorList = res.message
 	    },
-	}
 	
+	}
+	}
 </script>
 
 <style lang="less">
