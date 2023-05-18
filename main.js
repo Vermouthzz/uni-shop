@@ -19,7 +19,7 @@ $http.afterRequest = function () {
   uni.hideLoading()
 }
 
-uni.$showMeg = function(title = '数据加载成功', duration = 1500) {
+uni.$showMeg = function(title = '数据加载失败', duration = 1500) {
 	uni.showTopWindow({
 		title,
 		duration,
